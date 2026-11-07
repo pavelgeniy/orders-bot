@@ -21,6 +21,7 @@ from concurrent.futures import ThreadPoolExecutor
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG = os.path.join(HERE, "config.json")
 SEEN = os.path.join(HERE, "seen.json")
+KNOWN = os.path.join(HERE, "sources_seen.json")  # источники, которые уже прошли первый (тихий) запуск
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 SEEN_LIMIT = 20000
 
@@ -243,6 +244,9 @@ def main():
     seen_set = set(seen)
 
     results, errors = collect(cfg)
+    # Новый источник в первый раз только запоминается, чтобы не прислать сразу всю его ленту.
+    known = set(json.load(open(KNOWN, encoding="utf-8"))) if os.path.exists(KNOWN) else None
+    answered = {it["source"] for it, _, _ in results}
     new = []
     for it, flt, req in results:
         key = it["url"]
@@ -250,9 +254,12 @@ def main():
             continue
         seen_set.add(key)
         seen.append(key)
+        if known is not None and it["source"] not in known:
+            continue
         why = matches(it, flt, req, kw, minus)
         if why:
             new.append((it, why))
+    known = (known or set()) | answered
 
     print(f"Всего записей: {len(results)}, новых подходящих: {len(new)}, ошибок источников: {len(errors)}", file=sys.stderr)
 
@@ -276,6 +283,7 @@ def main():
             send(token, chat_id, f"…и ещё {len(new) - limit} заказов в этой проверке не поместились.")
 
     json.dump(seen[-SEEN_LIMIT:], open(SEEN, "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump(sorted(known), open(KNOWN, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
 
 
 if __name__ == "__main__":
