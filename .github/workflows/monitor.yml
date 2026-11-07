@@ -1,5 +1,4 @@
-name: monitor-orders
-
+name: monitor-orders x
 on:
   schedule:
     - cron: "*/10 * * * *"   # каждые 10 минут (GitHub иногда запускает с задержкой)
