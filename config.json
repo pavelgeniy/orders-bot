@@ -132,6 +132,11 @@
  "sources": {
   "rss": [
    {
+    "name": "Freelancehunt",
+    "url": "https://freelancehunt.com/projects.rss",
+    "filter": true
+   },
+   {
     "name": "DOU · Marketing",
     "url": "https://jobs.dou.ua/vacancies/feeds/?category=Marketing",
     "filter": true
@@ -162,38 +167,13 @@
     "filter": true
    },
    {
-    "name": "Reddit r/forhire",
-    "url": "https://www.reddit.com/r/forhire/new/.rss",
+    "name": "Reddit (forhire/hiring/slavelabour)",
+    "url": "https://www.reddit.com/r/forhire+hiring+slavelabour/new/.rss",
     "filter": true,
     "require": [
-     "hiring"
-    ]
-   },
-   {
-    "name": "Reddit r/slavelabour",
-    "url": "https://www.reddit.com/r/slavelabour/new/.rss",
-    "filter": true,
-    "require": [
+     "hiring",
      "task"
     ]
-   },
-   {
-    "name": "Reddit r/hiring",
-    "url": "https://www.reddit.com/r/hiring/new/.rss",
-    "filter": true,
-    "require": [
-     "hiring"
-    ]
-   },
-   {
-    "name": "Reddit r/DigitalMarketing (hiring)",
-    "url": "https://www.reddit.com/r/DigitalMarketingHire/new/.rss",
-    "filter": true
-   },
-   {
-    "name": "Weblancer",
-    "url": "https://www.weblancer.net/rss/jobs.rss",
-    "filter": true
    }
   ],
   "json": [
@@ -233,48 +213,6 @@
   ],
   "html": [
    {
-    "name": "Freelancehunt · SEO",
-    "url": "https://freelancehunt.com/projects/skill/poiskovoe-prodvizhenie-seo/14.html",
-    "link": "freelancehunt\\.com/project/[^\"'#?]+/\\d+\\.html",
-    "base": "https://freelancehunt.com",
-    "filter": false
-   },
-   {
-    "name": "Freelancehunt · Контекст",
-    "url": "https://freelancehunt.com/projects/skill/kontekstnaya-reklama/127.html",
-    "link": "freelancehunt\\.com/project/[^\"'#?]+/\\d+\\.html",
-    "base": "https://freelancehunt.com",
-    "filter": false
-   },
-   {
-    "name": "Freelancehunt · Аудит",
-    "url": "https://freelancehunt.com/projects/skill/seo-audit-saytov/134.html",
-    "link": "freelancehunt\\.com/project/[^\"'#?]+/\\d+\\.html",
-    "base": "https://freelancehunt.com",
-    "filter": false
-   },
-   {
-    "name": "Freelancehunt · Сайт под ключ",
-    "url": "https://freelancehunt.com/projects/skill/sozdanie-sayta-pod-klyuch/96.html",
-    "link": "freelancehunt\\.com/project/[^\"'#?]+/\\d+\\.html",
-    "base": "https://freelancehunt.com",
-    "filter": true
-   },
-   {
-    "name": "Freelancehunt · CMS",
-    "url": "https://freelancehunt.com/projects/skill/cms/78.html",
-    "link": "freelancehunt\\.com/project/[^\"'#?]+/\\d+\\.html",
-    "base": "https://freelancehunt.com",
-    "filter": true
-   },
-   {
-    "name": "Freelancehunt · Маркетинг",
-    "url": "https://freelancehunt.com/projects/skill/internet-marketing/13.html",
-    "link": "freelancehunt\\.com/project/[^\"'#?]+/\\d+\\.html",
-    "base": "https://freelancehunt.com",
-    "filter": true
-   },
-   {
     "name": "Freelance.ua",
     "url": "https://freelance.ua/orders/",
     "link": "/orders/\\d+[^\"'#?]*",
@@ -282,45 +220,17 @@
     "filter": true
    },
    {
-    "name": "PeoplePerHour",
-    "url": "https://www.peopleperhour.com/freelance-jobs/marketing-branding-sales",
-    "link": "/freelance-jobs/[a-z0-9-]+/[a-z0-9-]+/[a-z0-9-]+-\\d+",
-    "base": "https://www.peopleperhour.com",
-    "filter": true
-   },
-   {
-    "name": "PeoplePerHour · Tech",
-    "url": "https://www.peopleperhour.com/freelance-jobs/technology-programming",
-    "link": "/freelance-jobs/[a-z0-9-]+/[a-z0-9-]+/[a-z0-9-]+-\\d+",
-    "base": "https://www.peopleperhour.com",
-    "filter": true
-   },
-   {
-    "name": "Useme · Marketing",
-    "url": "https://useme.com/pl/jobs/category/marketing,31/",
+    "name": "Useme (PL)",
+    "url": "https://useme.com/pl/jobs/",
     "link": "/pl/jobs/[a-z0-9-]+,\\d+/",
     "base": "https://useme.com",
     "filter": true
    },
    {
-    "name": "Useme · Strony WWW",
-    "url": "https://useme.com/pl/jobs/category/strony-www,35/",
-    "link": "/pl/jobs/[a-z0-9-]+,\\d+/",
-    "base": "https://useme.com",
-    "filter": true
-   },
-   {
-    "name": "Guru · Marketing",
-    "url": "https://www.guru.com/d/jobs/c/sales-marketing/",
-    "link": "/work/detail/\\d+",
-    "base": "https://www.guru.com",
-    "filter": true
-   },
-   {
-    "name": "Kabanchik · Маркетинг",
-    "url": "https://kabanchik.ua/ua/category/internet-marketing",
-    "link": "/ua/task/\\d+[^\"'#?]*",
-    "base": "https://kabanchik.ua",
+    "name": "Weblancer",
+    "url": "https://www.weblancer.net/freelance/",
+    "link": "/freelance/[a-z0-9-]+-\\d+/[a-z0-9-]+-\\d+/",
+    "base": "https://www.weblancer.net",
     "filter": true
    }
   ],
@@ -346,14 +256,9 @@
    "FreeWorkFeed",
    "allgigs",
    "onlinevakansii",
-   "distantsiya",
    "freegolup",
    "FrWork3",
-   "tgjob",
-   "flancers",
-   "frilanc",
-   "freelancechoice",
-   "profiwork"
+   "freelancechoice"
   ]
  },
  "max_messages_per_run": 25
