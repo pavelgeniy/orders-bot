@@ -1,0 +1,10 @@
+name: debug-sources
+on:
+  push:
+    branches: [debug]
+jobs:
+  d:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 dbg/debug.py
