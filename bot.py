@@ -236,7 +236,9 @@ def send(token, chat_id, text):
 def main():
     cfg = json.load(open(CONFIG, encoding="utf-8"))
     token, chat_id = os.environ.get("BOT_TOKEN", ""), os.environ.get("CHAT_ID", "")
-    dry = os.environ.get("DRY_RUN") == "1" or not token or not chat_id
+    dry = os.environ.get("DRY_RUN") == "1"
+    if not dry and (not token or not chat_id):
+        sys.exit("ОШИБКА: не заданы секреты BOT_TOKEN и/или CHAT_ID. Ничего не отправлено.")
     kw, minus = compile_words(cfg["keywords"]), compile_words(cfg.get("minus_words", []))
 
     first_run = not os.path.exists(SEEN)
