@@ -1,0 +1,45 @@
+name: autobid-freelancehunt
+on:
+  schedule:
+    # Каждый час; скрипт сам решает, пора ли (окна 7:00-12:00 и 19:00-24:00 по Киеву, по одному разу).
+    # GitHub часто запускает расписание с опозданием, поэтому окна широкие.
+    - cron: "23 * * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Отправить отклики прямо сейчас (вне расписания)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: autobid
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Send Freelancehunt bids
+        env:
+          FH_TOKEN: ${{ secrets.FH_TOKEN }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          FORCE: ${{ inputs.force && '1' || '' }}
+        run: python autobid.py
+      - name: Save state
+        run: |
+          git config user.name "orders-bot"
+          git config user.email "orders-bot@users.noreply.github.com"
+          git add autobid_state.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "autobid state" -q
+            for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
+          fi

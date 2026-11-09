@@ -30,4 +30,4 @@ jobs:
           git config user.name "orders-bot"
           git config user.email "orders-bot@users.noreply.github.com"
           git add seen.json sources_seen.json
-          git diff --cached --quiet || (git commit -m "update seen" -q && git push -q)
+          git diff --cached --quiet || (git commit -m "update seen" -q && (git push -q || (git pull --rebase -q && git push -q)))
