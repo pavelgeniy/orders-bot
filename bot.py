@@ -225,6 +225,11 @@ def send(token, chat_id, text):
                 return json.loads(r.read())
         except urllib.error.HTTPError as e:
             body = e.read().decode("utf-8", "replace")
+            if e.code == 400 and "migrate_to_chat_id" in body:
+                # Группа стала супергруппой: у неё новый ID. Переходим на него.
+                new_id = json.loads(body)["parameters"]["migrate_to_chat_id"]
+                print(f"[WARN] группа сменила ID на {new_id}; обновите секрет CHAT_ID", file=sys.stderr)
+                return send(token, new_id, text)
             if e.code == 429:
                 wait = json.loads(body).get("parameters", {}).get("retry_after", 5)
                 time.sleep(wait + 1)
