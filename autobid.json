@@ -1,18 +1,15 @@
 {
- "_comment": "Настройки автооткликов Freelancehunt. mode: auto = отправлять ставки сами, draft = только присылать готовые тексты в Telegram. slots: окна по Киеву [с, до) часов; в каждом окне отклики отправляются один раз. Цена: если у проекта есть бюджет в UAH, ставка = бюджет x budget_share (не ниже min_price_uah); иначе price_uah темы.",
- "mode": "auto",
+ "_comment": "Настройки автооткликов Freelancehunt. mode: paused = ничего не отправлять (пауза), auto = отправлять ставки сами, draft = только присылать готовые тексты в Telegram. Рассылка раз в every_days дней, в окне slots (часы по Киеву [с, до)). Цена: если у проекта есть бюджет в UAH, ставка = бюджет x budget_share (не ниже min_price_uah); иначе price_uah темы.",
+ "mode": "paused",
+ "every_days": 2,
  "slots": {
   "morning": [
    7,
    12
-  ],
-  "evening": [
-   19,
-   24
   ]
  },
  "max_bids_per_run": 10,
- "max_age_hours": 14,
+ "max_age_hours": 48,
  "skip_if_bids_over": 40,
  "budget_share": 0.95,
  "min_price_uah": 700,

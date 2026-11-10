@@ -61,6 +61,13 @@ def current_slot(cfg, now):
     return None
 
 
+def too_soon(cfg, st, now):
+    """Рассылка раз в every_days дней: смотрим дату последнего отработанного слота."""
+    every = int(cfg.get("every_days", 1))
+    dates = [dt.date.fromisoformat(s[:10]) for s in st["done_slots"] if re.match(r"\d{4}-\d{2}-\d{2}", s)]
+    return bool(dates) and (now.date() - max(dates)).days < every
+
+
 # ---------- Freelancehunt ----------
 
 def fh_request(method, path, token, body=None):
@@ -174,9 +181,12 @@ def main():
     st = load_state()
     now = dt.datetime.now(KYIV)
     force = os.environ.get("FORCE") == "1"
+    if cfg.get("mode") == "paused":
+        print("Автоотклики на паузе (mode: paused в autobid.json)", file=sys.stderr)
+        return
     slot = current_slot(cfg, now)
-    if not force and (slot is None or slot in st["done_slots"]):
-        print(f"Не время отклика ({now:%H:%M} Киев) или слот {slot} уже отработан", file=sys.stderr)
+    if not force and (slot is None or slot in st["done_slots"] or too_soon(cfg, st, now)):
+        print(f"Не время отклика ({now:%H:%M} Киев), слот {slot}", file=sys.stderr)
         return
     slot = slot or f"{now:%Y-%m-%d-%H%M}-manual"
 
